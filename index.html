@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>IT Helpdesk Ticket System</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fa;
+            margin: 0;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        h1, h2 {
+            text-align: center;
+            color: #17365d;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            box-sizing: border-box;
+            width: 100%;
+            padding: 11px;
+            margin-top: 6px;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px;
+            background: #1769aa;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .dashboard-link {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>IT Helpdesk</h1>
+    <h2>Create Support Ticket</h2>
+
+    <form action="/create-ticket" method="POST">
+
+        <label for="name">Name</label>
+        <input id="name" type="text" name="name" required>
+
+        <label for="email">Email</label>
+        <input id="email" type="email" name="email" required>
+
+        <label for="issue">Issue</label>
+        <input id="issue" type="text" name="issue"
+               placeholder="Example: VPN not working" required>
+
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority" required>
+            <option value="LOW">Low</option>
+            <option value="MEDIUM">Medium</option>
+            <option value="HIGH">High</option>
+            <option value="CRITICAL">Critical</option>
+        </select>
+
+        <label for="description">Description</label>
+        <textarea id="description" name="description" required></textarea>
+
+        <button type="submit">Create Ticket</button>
+    </form>
+
+    <a class="dashboard-link" href="/dashboard">
+        View Support Dashboard
+    </a>
+
+</div>
+</body>
+</html>

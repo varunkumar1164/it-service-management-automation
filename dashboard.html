@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Helpdesk Dashboard</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f6fa;
+            padding: 25px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #17365d;
+        }
+
+        .search-form {
+            margin: 20px 0;
+        }
+
+        input, select, button {
+            padding: 9px;
+        }
+
+        table {
+            width: 100%;
+            background: white;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background: #17365d;
+            color: white;
+        }
+
+        .actions form {
+            margin-bottom: 8px;
+        }
+
+        .actions button {
+            cursor: pointer;
+        }
+
+        .back {
+            display: block;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>IT Helpdesk Dashboard</h1>
+
+<form class="search-form" action="/dashboard" method="GET">
+    <input
+        type="text"
+        name="search"
+        value="{{ search }}"
+        placeholder="Search by ID, name, issue or status"
+    >
+    <button type="submit">Search</button>
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>Ticket ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Issue</th>
+            <th>Priority</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for ticket in tickets %}
+        <tr>
+            <td>{{ ticket.id }}</td>
+            <td>{{ ticket.name }}</td>
+            <td>{{ ticket.email }}</td>
+            <td>{{ ticket.issue }}</td>
+            <td>{{ ticket.priority }}</td>
+            <td>{{ ticket.description }}</td>
+            <td>{{ ticket.status }}</td>
+
+            <td class="actions">
+                <form action="/update/{{ ticket.id }}" method="POST">
+                    <select name="status">
+                        <option value="OPEN"
+                            {% if ticket.status == "OPEN" %}selected{% endif %}>
+                            Open
+                        </option>
+
+                        <option value="IN PROGRESS"
+                            {% if ticket.status == "IN PROGRESS" %}selected{% endif %}>
+                            In Progress
+                        </option>
+
+                        <option value="RESOLVED"
+                            {% if ticket.status == "RESOLVED" %}selected{% endif %}>
+                            Resolved
+                        </option>
+                    </select>
+
+                    <button type="submit">Update</button>
+                </form>
+
+                <form
+                    action="/delete/{{ ticket.id }}"
+                    method="POST"
+                    onsubmit="return confirm('Delete this ticket?');"
+                >
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+
+        {% else %}
+        <tr>
+            <td colspan="8">No tickets found.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<a class="back" href="/">Create New Ticket</a>
+
+</body>
+</html>

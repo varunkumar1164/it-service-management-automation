@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: helpdesk-service
+
+spec:
+  type: NodePort
+
+  selector:
+    app: helpdesk-app
+
+  ports:
+    - port: 5000
+      targetPort: 5000
+      protocol: TCP
